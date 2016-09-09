@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="screen-orientation" content="portrait"><!-- uc强制竖屏 -->
+		<meta name="x5-orientation" content="portrait"><!-- QQ强制竖屏 -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>blackpink</title>
+		<link rel="stylesheet" type="text/css" href="css/animate.css"/>
+		<link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.eraser.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/swiper-3.3.1.jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/swiper.animate1.0.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/three.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/xiangyingshi.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			 html, body {
+		        position: relative;
+		        height: 100%;
+		    }
+		    #redux{
+		    	display: block;
+		    	width: 100%;
+		    }
+		    .swiper-container {
+		        width: 100%;
+		        height: 100%;
+		    }
+		    .swiper-slide {
+		        text-align: center;
+		        font-size: 1rem;
+		    }
+			.swiper-slide_1{
+				background: url(images/logo.jpg) center center;
+				background-size: cover;
+			}
+			.swiper-slide_2{
+				background: url(images/four1.jpg) center center;
+				background-size: cover;
+			}
+			.swiper-slide_3{
+				background: url(images/jinnie_2.jpg) center center;
+				background-size: cover;
+			}
+			.swiper-slide_4{
+				background: url(images/jisoo_2.jpg) center center;
+				background-size: cover;
+			}
+			.swiper-slide_5{
+				background: url(images/lisa_2.jpg) center center;
+				background-size: cover;
+			}
+			.swiper-slide_6{
+				background: url(images/rose_2.jpg) center center;
+				background-size: cover;
+			}
+			.swiper-slide .swiper-lazy{
+				display: block;
+				height: 100%;
+			}
+			.title{
+				font-size: 2rem;
+				color: pink;
+				position: absolute;
+				z-index: 99999;
+				left: 0;
+				right: 0;
+				top: 10px;
+				text-align: center;
+			}
+			#music{
+				width: 2rem;
+				height: 2rem;
+				position: fixed;
+				top: 10px;
+				right: 10px;
+				background: url(images/paly.png) center center no-repeat;
+				background-size: cover;
+				z-index: 9999999;
+			}
+			.music_do{
+				-webkit-animation: music_paly 2s linear infinite;
+				animation: music_paly 2s linear infinite;
+			}
+			@keyframes music_paly{
+				from{
+					transform: rotateZ(0deg);
+				}
+				to{
+					transform: rotateZ(360deg);
+				}
+			}
+			@-webkit-keyframes music_paly{
+				from{
+					transform: rotateZ(0deg);
+				}
+				to{
+					transform: rotateZ(360deg);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="music">
+			
+		</div>
+				<!-- Swiper -->
+	    <div class="swiper-container">
+	        <div class="swiper-wrapper">
+	            <div class="swiper-slide swiper-slide_1">
+	            	<img src="images/black.png" id="redux"/>
+	            </div>
+	            <div class="swiper-slide swiper-slide_2">
+	            	<p class="title ani" swiper-animate-effect="slideInDown" swiper-animate-duration="1s" swiper-animate-delay="0.3s">BLACKPINK</p>
+	            </div>
+	            <div class="swiper-slide swiper-slide_3">
+	            	<p class="title ani" swiper-animate-effect="slideInLeft" swiper-animate-duration="1s" swiper-animate-delay="0.3s">JINNIE</p>
+					<!--<img data-src="images/jinnie_2.jpg" class="swiper-lazy"/>
+	            	<div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>-->
+	            </div>
+	            <div class="swiper-slide swiper-slide_4">
+	            	<p class="title ani" swiper-animate-effect="rotateInDownLeft" swiper-animate-duration="1s" swiper-animate-delay="0.3s">JISOO</p>
+	            	<!--<img data-src="images/jisoo_2.jpg" class="swiper-lazy"/>
+	            	<div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>-->
+	            </div>
+	            <div class="swiper-slide swiper-slide_5">
+	            	<p class="title ani" swiper-animate-effect="flipInX" swiper-animate-duration="1s" swiper-animate-delay="0.3s">LISA</p>
+	            	<!--<img data-src="images/lisa_2.jpg" class="swiper-lazy"/>
+	            	<div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>-->
+	            </div>
+	            <div class="swiper-slide swiper-slide_6">
+	            	<p class="title ani" swiper-animate-effect="zoomInLeft" swiper-animate-duration="1s" swiper-animate-delay="0.3s">ROSE</p>
+	            	<!--<img data-src="images/rose_2.jpg" class="swiper-lazy"/>
+	            	<div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>-->
+	            </div>
+	        </div>
+	        <!-- Add Pagination 弹窗位置较特殊-->
+	        <div class="tanchuang swiper-pagination">
+	        </div>
+	    </div>
+	</body>
+	<script type="text/javascript">
+		var renderer;
+		var scene;
+		var camera;
+		var raf;
+		var angle_add;
+		var z_add;
+		addEventListener( "load", init, false );
+		function init(event) {
+		//下面的代码实现当画布被擦除50%时触发事件showSwiper。
+			$('#redux').eraser( {
+				completeRatio: .5,
+				size:50,//橡皮擦大小
+				completeFunction: showSwiper
+			});
+		}
+		function showSwiper(){
+			$("#redux").remove();//50%的时候移除遮罩
+			music_do();//播放音乐
+			$("#music").addClass("music_do");//图标转动
+			$("#music").click(function(){
+				if($(this).hasClass("music_do")){
+					$(this).removeClass("music_do");
+					audio.pause();
+				}else{
+					$(this).addClass("music_do");
+					audio.play();
+				}
+			})
+			var swiper = new Swiper('.swiper-container', {
+				onInit: function(swiper){ //Swiper2.x的初始化是onFirstInit
+				   swiperAnimateCache(swiper); //隐藏动画元素 
+				   swiperAnimate(swiper); //初始化完成开始动画
+				}, 
+				onSlideChangeEnd: function(swiper){ 
+				   swiperAnimate(swiper); //每个slide切换结束时也运行当前slide动画
+				},  
+		        pagination: '.swiper-pagination',
+		        paginationClickable: true,
+		        direction: 'vertical',
+		        mousewheelControl: true,
+		         // Disable preloading of all images
+	       		preloadImages: false,
+		         // Enable lazy loading
+	        	lazyLoading: true,
+	        	onSlideChangeStart:function(){
+	        		var con=$(".swiper-slide_1").hasClass("swiper-slide-active");
+	        		var active_num=$(".swiper-slide-active").index();
+	        		$("canvas").remove();
+	        		if(!con){
+	        			createCanvas(active_num);
+	        		}
+	        	}
+	   		});
+		}
+		$(window).resize(function(){
+			if(camera){
+				camera.aspect=window.innerWidth/innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize(window.innerWidth,window.innerHeight);
+			}	
+		})
+		function createCanvas(para){
+			if(renderer){//目的用于移除旧的webglcontext，创建多个webglcontext之后，会严重影响浏览器性能
+				renderer.forceContextLoss();
+				renderer.context = null;
+				renderer.domElement = null;
+				renderer = null;
+			}
+			if(raf){//非常重要，移除之前的requestAnimationFrame事件，requestAnimationFrame过多，浏览器直接卡死
+				window.cancelAnimationFrame(raf);
+				console.log(raf)
+			}
+			//因为视角不同 ，所以创建两个scene和两个carema，一个用来画背景图片，一个用来画动效，图片camera的观察方向和动效的camera观察方向不一致
+			scene=new THREE.Scene();
+			//camera=new THREE.OrthographicCamera(-window.innerWidth/2,window.innerWidth/2,window.innerHeight/2,-window.innerHeight/2,1,10000);
+			camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,1,10000);
+			scene_pic=new THREE.Scene();
+			//camera_pic=new THREE.OrthographicCamera(-window.innerWidth/2,window.innerWidth/2,window.innerHeight/2,-window.innerHeight/2,1,10000);
+			camera_pic=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,1,10000);
+			camera_pic.position.z=500;//相机Z轴位置,距离设置在场景中的物体之后，才能看见物体，但是物体不会随着距离增加而变小，因为不是远景相机
+			camera.position.x=0;
+			camera.position.z=500;
+			camera.position.y=130;
+			camera.lookAt(scene.position);
+			renderer=new THREE.WebGLRenderer({antialias:true});
+			//renderer.setClearColor(0xf5a6b9);
+			//renderer.shadowMap.enabled=true;
+			renderer.autoClear = false;//是否自动清屏
+			renderer.setSize(window.innerWidth,window.innerHeight);
+			$(".swiper-slide-active").append(renderer.domElement);
+			$("canvas").css({
+				"display":"block",
+				"position":"absolute",
+				"z-index":999,
+				"top":0
+			})
+			//grid_init();
+			palne_init();
+			geometry_init(para);
+			light_init();
+			var texture = createMap(para);
+			var material_bg = new THREE.MeshBasicMaterial({map:texture})//渲染背景
+	        //var material_bg=new THREE.MeshBasicMaterial({color:Math.random()*0xffffff})
+	        Mesh_pic = new THREE.Mesh(new THREE.PlaneGeometry(window.innerWidth,window.innerHeight), material_bg);
+	        Mesh_pic.rotation.x=-0.5;
+	        scene_pic.add(Mesh_pic);
+	       // camera_pic.rotation.x=-0.5;
+			//axis_init();
+			render_init();
+		}
+		function render_init(){
+			if(light.position.z>=400){
+				z_add=-1;
+			}else if(light.position.z<=0){
+				z_add=1;
+			}
+			light.position.z+=z_add;
+
+			entity_obj.rotation.x+=0.02;
+			entity_obj.rotation.y+=0.02;
+			if(Mesh_pic.rotation.x<=(-0.5)){
+				angle_add=0.005;
+			}else if(Mesh_pic.rotation.x>=0.1){
+				angle_add=-0.005;
+			}
+			Mesh_pic.rotation.x+=angle_add;
+			renderer.render(scene_pic,camera_pic);
+			renderer.render(scene,camera);
+			raf=window.requestAnimationFrame(render_init);
+		}
+		function light_init(){
+			light=new THREE.SpotLight(Math.random()*0xffffff,.5);//聚光灯
+			light_1=new THREE.AmbientLight(0xb3b3b3,0.5);//环境光基本是黑色的，如果是白光的，则没有阴影
+			light.position.x=50;
+			light.position.z=0;
+			light.position.y=150;
+			light.target=entity_obj;
+			//light.castShadow=true;
+			scene.add(light);
+			scene.add(light_1);
+//			helper_light = new THREE.CameraHelper(light.shadow.camera);
+//			scene.add(helper_light);
+		}
+		function grid_init(){
+			grid=new THREE.GridHelper(1000,10);
+			scene.add(grid);
+		}
+		function axis_init(){
+			axis=new THREE.AxisHelper(250);
+			scene.add(axis);
+		}
+		function palne_init(){
+			geometry_p=new THREE.PlaneGeometry(200000,200000);
+			material_p=new THREE.MeshLambertMaterial({color:0xf5a6b9,transparent:true,opacity:0.8});
+			plane_obj=new THREE.Mesh(geometry_p,material_p);
+			plane_obj.rotation.x=-Math.PI/2;
+			plane_obj.position.x=0;
+			plane_obj.position.z=0;
+			//plane_obj.receiveShadow=true;
+			scene.add(plane_obj);
+		}
+		function geometry_init(para){
+			switch (para){
+				case 1:
+					var path = "images/four2.jpg";
+					break;
+				case 2:
+					var path = "images/jinnie_1.jpg";
+					break;
+				case 3:
+					var path = "images/jisoo_1.jpg";
+					break;
+				case 4:
+					var path = "images/lisa_1.jpg";
+					break;
+				case 5:
+					var path = "images/rose_1.jpg";
+					break;	
+				default:
+					break;
+			}
+			if(para==1){
+				var geometry=new THREE.CubeGeometry(0.5*window.innerWidth,0.5*window.innerWidth,0.5*window.innerWidth)//创建立方体模型
+			}else if(para%2==0){
+				var geometry=new THREE.OctahedronGeometry(window.innerWidth/8)//创建正8面体
+			}else{
+				var geometry=new THREE.CubeGeometry(window.innerWidth/8,window.innerWidth/8,window.innerWidth/8)//创建立方体模型
+			}
+			var texture = THREE.ImageUtils.loadTexture(path, {}, function(){}); // 载入单个贴图（建议贴图的长宽为256的倍数）
+			var material=new THREE.MeshPhongMaterial({map:texture})//创建渲染材料（贴图），立方体渲染时的颜色
+			entity_obj=new THREE.Mesh(geometry,material)//创建实体（模型和贴图结合）
+			if(para!==1){
+				entity_obj.position.set(-0.3*window.innerWidth,0.35*window.innerHeight,0)
+			}
+			scene.add(entity_obj)//把实体放到场景中，注意，此时实体的坐标在相机坐标原点
+		}
+		function createMap(para) {//加载纹理
+			console.log(para)
+			switch (para){
+				case 1:
+					var path = "images/four1.jpg";
+					break;
+				case 2:
+					var path = "images/jinnie_2.jpg";
+					break;
+				case 3:
+					var path = "images/jisoo_2.jpg";
+					break;
+				case 4:
+					var path = "images/lisa_2.jpg";
+					break;
+				case 5:
+					var path = "images/rose_2.jpg";
+					break;	
+				default:
+					break;
+			}
+			var texture = THREE.ImageUtils.loadTexture(path, {}, function(){});//加载纹理
+	        return texture;
+       	}
+		function music_do(){
+			audio=new Audio();
+			audio.src="music/WHISTLE (휘파람).mp3";
+			audio.addEventListener('loadedmetadata',function(){
+				audio.loop=true;//设置循环播放
+				audio.play();//播放音乐
+			})
+		}
+	</script>
+</html>
